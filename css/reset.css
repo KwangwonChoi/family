@@ -6,7 +6,7 @@
     font-style: normal;
 }
 *{margin:0; padding:0;}
-body{font-size:16px; line-height: 1.4; color:#333; font-family: 'GmarketSansMedium'; -ms-overflow-style: none; /* IE and Edge */ scrollbar-width: none; /* Firefox */}
+body{font-size:16px; line-height: 1.4; color:#333; font-family: 'GmarketSansMedium'; -ms-overflow-style: none; /* IE and Edge */ scrollbar-width: none; /* Firefox */ background-color:#fff;}
 body::-webkit-scrollbar {display: none; /* Chrome, Safari, Opera*/}
 
 ul,li{list-style: none;}
