@@ -1,0 +1,2461 @@
+openapi: 3.0.0
+info:
+  contact: {}
+  title: '@vnks-console/bff-common-api'
+  version: "1.0"
+servers:
+- url: /
+paths:
+  /:
+    get:
+      operationId: CommonApiController_getRoot
+      parameters: []
+      responses:
+        "200": {}
+  /health:
+    get:
+      operationId: CommonApiController_health
+      parameters: []
+      responses:
+        "200": {}
+  /nodes:
+    get:
+      operationId: NodesController_findAll
+      parameters:
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: clusterUuid
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/NodeRes'
+                type: array
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - nodes
+    post:
+      operationId: NodesController_create
+      parameters:
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNodeDto'
+        required: true
+      responses:
+        "201": {}
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - nodes
+  /nodes/{id}:
+    delete:
+      operationId: NodesController_remove
+      parameters:
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200": {}
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - nodes
+    get:
+      operationId: NodesController_findOne
+      parameters:
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: clusterUuid
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeRes'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - nodes
+    patch:
+      operationId: NodesController_update
+      parameters:
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNodeDto'
+        required: true
+      responses:
+        "200": {}
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - nodes
+  /node-pools:
+    get:
+      operationId: NodePoolsController_findAll
+      parameters:
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: clusterUuid
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/NodepoolRes'
+                type: array
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - node-pools
+    post:
+      operationId: NodePoolsController_create
+      parameters:
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNodePoolDto'
+        required: true
+      responses:
+        "201": {}
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - node-pools
+  /node-pools/{id}:
+    delete:
+      operationId: NodePoolsController_remove
+      parameters:
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200": {}
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - node-pools
+    get:
+      operationId: NodePoolsController_findOne
+      parameters:
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: clusterUuid
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodepoolRes'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - node-pools
+    patch:
+      operationId: NodePoolsController_update
+      parameters:
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateNodePoolDto'
+        required: true
+      responses:
+        "200": {}
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - node-pools
+  /clusters:
+    get:
+      operationId: ClustersController_findAll
+      parameters:
+      - description: region code
+        explode: false
+        in: header
+        name: x-ncp-region_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ClusterRes'
+                type: array
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - clusters
+    post:
+      operationId: ClustersController_create
+      parameters:
+      - description: region code
+        explode: false
+        in: header
+        name: x-ncp-region_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClusterDto'
+        required: true
+      responses:
+        "201": {}
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - clusters
+  /clusters/verify:
+    post:
+      operationId: ClustersController_verifyCreation
+      parameters:
+      - description: region code
+        explode: false
+        in: header
+        name: x-ncp-region_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClusterDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyCreationRes'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - clusters
+  /clusters/{uuid}:
+    delete:
+      operationId: ClustersController_remove
+      parameters:
+      - description: region code
+        explode: false
+        in: header
+        name: x-ncp-region_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200": {}
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - clusters
+    get:
+      operationId: ClustersController_findOne
+      parameters:
+      - description: region code
+        explode: false
+        in: header
+        name: x-ncp-region_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClusterRes'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - clusters
+    patch:
+      operationId: ClustersController_update
+      parameters:
+      - description: region code
+        explode: false
+        in: header
+        name: x-ncp-region_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateClusterDto'
+        required: true
+      responses:
+        "200": {}
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - clusters
+  /clusters/{uuid}/verify:
+    patch:
+      operationId: ClustersController_verifyModification
+      parameters:
+      - description: region code
+        explode: false
+        in: header
+        name: x-ncp-region_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateClusterDto'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyModificationRes'
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - clusters
+  /iam:
+    get:
+      operationId: IamController_findAll
+      parameters: []
+      responses:
+        "200": {}
+      tags:
+      - iam
+    post:
+      operationId: IamController_create
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateIamDto'
+        required: true
+      responses:
+        "201": {}
+      tags:
+      - iam
+  /iam/{id}:
+    delete:
+      operationId: IamController_remove
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200": {}
+      tags:
+      - iam
+    get:
+      operationId: IamController_findOne
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200": {}
+      tags:
+      - iam
+    patch:
+      operationId: IamController_update
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateIamDto'
+        required: true
+      responses:
+        "200": {}
+      tags:
+      - iam
+  /options/versions:
+    get:
+      operationId: OptionsController_versions
+      parameters:
+      - description: region code
+        explode: false
+        in: header
+        name: x-ncp-region_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200": {}
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - options
+  /options/kubeNetworkPlugins:
+    get:
+      operationId: OptionsController_kubeNetworkPlugins
+      parameters:
+      - description: region code
+        explode: false
+        in: header
+        name: x-ncp-region_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OptionRes'
+                type: array
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - options
+  /options/vpc:
+    get:
+      operationId: OptionsController_vpc
+      parameters:
+      - description: region code
+        explode: false
+        in: header
+        name: x-ncp-region_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OptionRes'
+                type: array
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - options
+  /options/vpc/{vpcNo}/{zoneNo}/subnet:
+    get:
+      operationId: OptionsController_subnet
+      parameters:
+      - description: region code
+        explode: false
+        in: header
+        name: x-ncp-region_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - example: "564"
+        explode: false
+        in: path
+        name: vpcNo
+        required: true
+        schema:
+          type: number
+        style: simple
+      - example: "2"
+        explode: false
+        in: path
+        name: zoneNo
+        required: true
+        schema:
+          type: number
+        style: simple
+      - example: 822,823,824
+        explode: true
+        in: query
+        name: subnetNoList
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: igwYn
+        required: false
+        schema:
+          enum:
+          - ""
+          - "Y"
+          - "N"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: lbYn
+        required: false
+        schema:
+          enum:
+          - ""
+          - "Y"
+          - "N"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OptionRes'
+                type: array
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - options
+  /options/vpc/{vpcNo}/{zoneNo}/subnet/ipcount:
+    get:
+      operationId: OptionsController_subnetWithIpCount
+      parameters:
+      - description: region code
+        explode: false
+        in: header
+        name: x-ncp-region_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: member no
+        explode: false
+        in: header
+        name: x-ncp-mbr_no
+        required: true
+        schema:
+          type: string
+        style: simple
+      - example: "564"
+        explode: false
+        in: path
+        name: vpcNo
+        required: true
+        schema:
+          type: number
+        style: simple
+      - example: "2"
+        explode: false
+        in: path
+        name: zoneNo
+        required: true
+        schema:
+          type: number
+        style: simple
+      - example: 822,823,824
+        explode: true
+        in: query
+        name: subnetNoList
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: igwYn
+        required: false
+        schema:
+          enum:
+          - ""
+          - "Y"
+          - "N"
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: lbYn
+        required: false
+        schema:
+          enum:
+          - ""
+          - "Y"
+          - "N"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OptionRes'
+                type: array
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPErrorRes'
+      tags:
+      - options
+components:
+  schemas:
+    HTTPErrorRes:
+      properties:
+        statusCode:
+          type: integer
+        message:
+          items:
+            type: string
+          type: array
+        error:
+          type: string
+        timestamp:
+          format: date-time
+          type: string
+      required:
+      - error
+      - message
+      - statusCode
+      - timestamp
+      type: object
+    CreateNodeDto:
+      properties: {}
+      type: object
+    NodeRes:
+      example:
+        k8sStatus: k8sStatus
+        computeInstanceName: computeInstanceName
+        carrierNetworkIp: carrierNetworkIp
+        nodePoolName: nodePoolName
+        publicIpInstanceNo: publicIpInstanceNo
+        generationCode: generationCode
+        regionNo: 1
+        osDiskTypeCode: osDiskTypeCode
+        hypervisorKindCode: hypervisorKindCode
+        id: 5
+        gpuCount: gpuCount
+        cpuCount: 4
+        rootPassword: rootPassword
+        detailStatus: detailStatus
+        nodePoolId: 1
+        subnetNo: subnetNo
+        ip: ip
+        baseBlockStorageSize: baseBlockStorageSize
+        computeInstanceTypeCode: computeInstanceTypeCode
+        mbrNo: 2
+        hostNameInitConfigYn: hostNameInitConfigYn
+        rootPasswordResetYn: rootPasswordResetYn
+        networkInterfaceList: networkInterfaceList
+        networkQosMaxKbps: networkQosMaxKbps
+        customImageInstanceNo: customImageInstanceNo
+        networkInterface: networkInterface
+        vpcNo: 1
+        status: status
+        statusCode: statusCode
+        computeSpec: computeSpec
+        isSsdStorageAddable: true
+        contractNo: 7
+        alisOsName: alisOsName
+        serverName: serverName
+        blockStorageInformation: blockStorageInformation
+        alisInstallProfileName: alisInstallProfileName
+        computeInstanceUuid: computeInstanceUuid
+        regionCode: regionCode
+        updateYmdt: 2000-01-23T04:56:07.000+00:00
+        dockerVersion: dockerVersion
+        alisOsVersionName: alisOsVersionName
+        placementGroupNo: placementGroupNo
+        statusName: statusName
+        createYmdt: 6
+        alisRaidTypeName: alisRaidTypeName
+        nksServer: true
+        instanceTypeCode: instanceTypeCode
+        publicIp: publicIp
+        returnProtectionYn: returnProtectionYn
+        productCode: productCode
+        placementPartitionNumber: placementPartitionNumber
+        overlayNetworkIp: overlayNetworkIp
+        expansionCardName: expansionCardName
+        computeInstanceDetailTypeCode: computeInstanceDetailTypeCode
+        instanceProductType2Code: instanceProductType2Code
+        isHddStorageAddable: true
+        storageEncryptionYn: storageEncryptionYn
+        nodePoolStatus: nodePoolStatus
+        specVersion: specVersion
+        asyncTaskUuid: asyncTaskUuid
+        operationCode: operationCode
+        privateIp: privateIp
+        customImageInstanceName: customImageInstanceName
+        spec: spec
+        subAccountNo: subAccountNo
+        initConfigurationScriptName: initConfigurationScriptName
+        initScriptExecuteYn: initScriptExecuteYn
+        cncNo: 7
+        roleCd: roleCd
+        alisVaccineInstallYn: alisVaccineInstallYn
+        subAccountLoginId: subAccountLoginId
+        nodeUseSubTypeCode: nodeUseSubTypeCode
+        pmNo: pmNo
+        memberNo: 9
+        instanceStatusName: instanceStatusName
+        macAddress: macAddress
+        hostServerNameSameYn: hostServerNameSameYn
+        osDiskTypeDetailCode: osDiskTypeDetailCode
+        serverSpec: serverSpec
+        kernelVersion: kernelVersion
+        name: name
+        redhatYn: redhatYn
+        nodeRoleCode: nodeRoleCode
+        groupInstanceNo: 1
+        expansionCardShortName: expansionCardShortName
+        parameters: parameters
+        vpcName: vpcName
+        feeChargeMonitoringYn: feeChargeMonitoringYn
+        statusColor: statusColor
+        instanceDesc: instanceDesc
+        instanceNoList: instanceNoList
+        regionName: regionName
+        serverInstanceTypeCode: serverInstanceTypeCode
+        description: description
+        clusterId: 0
+        platformTypeCode: platformTypeCode
+        initConfigurationScriptNo: initConfigurationScriptNo
+        subnetName: subnetName
+        serverImageName: serverImageName
+        operationYmdt: 3
+        placementGroupName: placementGroupName
+        softwareProductCode: softwareProductCode
+        describeNode: '{}'
+        zoneName: zoneName
+        serviceGroupInstanceTypeCode: serviceGroupInstanceTypeCode
+        additionalParameterMap: '{}'
+        instanceStatusCode: instanceStatusCode
+        uptime: 1
+        cgnIp: cgnIp
+        memorySize: 7
+        zoneNo: 6
+        loginKeyName: loginKeyName
+        instanceNo: 5
+        osInformation: osInformation
+        providerID: providerID
+        instanceUuid: instanceUuid
+        nsiName: nsiName
+        launchDateTime: 2
+        blockDevicePartitions: blockDevicePartitions
+      properties:
+        cgnIp:
+          type: string
+        clusterId:
+          type: integer
+        createYmdt:
+          type: integer
+        description:
+          type: string
+        detailStatus:
+          type: string
+        groupInstanceNo:
+          type: integer
+        id:
+          type: integer
+        instanceNo:
+          type: integer
+        ip:
+          type: string
+        mbrNo:
+          type: integer
+        name:
+          type: string
+        roleCd:
+          type: string
+        spec:
+          type: string
+        specVersion:
+          type: string
+        status:
+          type: string
+        updateYmdt:
+          format: date-time
+          type: string
+        instanceTypeCode:
+          type: string
+        productCode:
+          type: string
+        contractNo:
+          type: integer
+        memberNo:
+          type: integer
+        subAccountNo:
+          type: string
+        subAccountLoginId:
+          type: string
+        instanceStatusCode:
+          type: string
+        operationCode:
+          type: string
+        instanceUuid:
+          type: string
+        instanceDesc:
+          type: string
+        softwareProductCode:
+          type: string
+        customImageInstanceNo:
+          type: string
+        customImageInstanceName:
+          type: string
+        operationYmdt:
+          type: integer
+        launchDateTime:
+          type: integer
+        parameters:
+          type: string
+        computeInstanceUuid:
+          type: string
+        computeInstanceName:
+          type: string
+        serverName:
+          type: string
+        nsiName:
+          type: string
+        instanceStatusName:
+          type: string
+        cpuCount:
+          type: integer
+        memorySize:
+          type: integer
+        gpuCount:
+          type: string
+        baseBlockStorageSize:
+          type: string
+        computeInstanceTypeCode:
+          type: string
+        serverInstanceTypeCode:
+          type: string
+        instanceProductType2Code:
+          type: string
+        computeSpec:
+          type: string
+        serverSpec:
+          type: string
+        platformTypeCode:
+          type: string
+        osInformation:
+          type: string
+        osDiskTypeCode:
+          type: string
+        osDiskTypeDetailCode:
+          type: string
+        uptime:
+          type: integer
+        returnProtectionYn:
+          type: string
+        feeChargeMonitoringYn:
+          type: string
+        hostNameInitConfigYn:
+          type: string
+        rootPasswordResetYn:
+          type: string
+        initScriptExecuteYn:
+          type: string
+        rootPassword:
+          type: string
+        loginKeyName:
+          type: string
+        initConfigurationScriptNo:
+          type: string
+        initConfigurationScriptName:
+          type: string
+        vpcNo:
+          type: integer
+        vpcName:
+          type: string
+        subnetNo:
+          type: string
+        subnetName:
+          type: string
+        macAddress:
+          type: string
+        hostServerNameSameYn:
+          type: string
+        networkInterface:
+          type: string
+        publicIpInstanceNo:
+          type: string
+        publicIp:
+          type: string
+        generationCode:
+          type: string
+        expansionCardName:
+          type: string
+        expansionCardShortName:
+          type: string
+        redhatYn:
+          type: string
+        regionNo:
+          type: integer
+        regionCode:
+          type: string
+        regionName:
+          type: string
+        zoneNo:
+          type: integer
+        zoneName:
+          type: string
+        cncNo:
+          type: integer
+        pmNo:
+          type: string
+        hypervisorKindCode:
+          type: string
+        asyncTaskUuid:
+          type: string
+        overlayNetworkIp:
+          type: string
+        carrierNetworkIp:
+          type: string
+        computeInstanceDetailTypeCode:
+          type: string
+        isSsdStorageAddable:
+          type: boolean
+        isHddStorageAddable:
+          type: boolean
+        instanceNoList:
+          type: string
+        networkInterfaceList:
+          type: string
+        additionalParameterMap:
+          type: object
+        networkQosMaxKbps:
+          type: string
+        placementGroupNo:
+          type: string
+        placementGroupName:
+          type: string
+        placementPartitionNumber:
+          type: string
+        alisOsName:
+          type: string
+        alisOsVersionName:
+          type: string
+        alisRaidTypeName:
+          type: string
+        alisVaccineInstallYn:
+          type: string
+        blockStorageInformation:
+          type: string
+        alisInstallProfileName:
+          type: string
+        nodeRoleCode:
+          type: string
+        serviceGroupInstanceTypeCode:
+          type: string
+        storageEncryptionYn:
+          type: string
+        blockDevicePartitions:
+          type: string
+        nodeUseSubTypeCode:
+          type: string
+        nksServer:
+          type: boolean
+        nodePoolName:
+          type: string
+        describeNode:
+          type: object
+        nodePoolStatus:
+          type: string
+        nodePoolId:
+          type: integer
+        privateIp:
+          type: string
+        statusCode:
+          type: string
+        statusColor:
+          type: string
+        statusName:
+          type: string
+        serverImageName:
+          type: string
+        k8sStatus:
+          type: string
+        dockerVersion:
+          type: string
+        kernelVersion:
+          type: string
+        providerID:
+          type: string
+      required:
+      - additionalParameterMap
+      - alisInstallProfileName
+      - alisOsName
+      - alisOsVersionName
+      - alisRaidTypeName
+      - alisVaccineInstallYn
+      - asyncTaskUuid
+      - baseBlockStorageSize
+      - blockDevicePartitions
+      - blockStorageInformation
+      - carrierNetworkIp
+      - cgnIp
+      - clusterId
+      - cncNo
+      - computeInstanceDetailTypeCode
+      - computeInstanceName
+      - computeInstanceTypeCode
+      - computeInstanceUuid
+      - computeSpec
+      - contractNo
+      - cpuCount
+      - createYmdt
+      - customImageInstanceName
+      - customImageInstanceNo
+      - describeNode
+      - description
+      - detailStatus
+      - dockerVersion
+      - expansionCardName
+      - expansionCardShortName
+      - feeChargeMonitoringYn
+      - generationCode
+      - gpuCount
+      - groupInstanceNo
+      - hostNameInitConfigYn
+      - hostServerNameSameYn
+      - hypervisorKindCode
+      - id
+      - initConfigurationScriptName
+      - initConfigurationScriptNo
+      - initScriptExecuteYn
+      - instanceDesc
+      - instanceNo
+      - instanceNoList
+      - instanceProductType2Code
+      - instanceStatusCode
+      - instanceStatusName
+      - instanceTypeCode
+      - instanceUuid
+      - ip
+      - isHddStorageAddable
+      - isSsdStorageAddable
+      - k8sStatus
+      - kernelVersion
+      - launchDateTime
+      - loginKeyName
+      - macAddress
+      - mbrNo
+      - memberNo
+      - memorySize
+      - name
+      - networkInterface
+      - networkInterfaceList
+      - networkQosMaxKbps
+      - nksServer
+      - nodePoolId
+      - nodePoolName
+      - nodePoolStatus
+      - nodeRoleCode
+      - nodeUseSubTypeCode
+      - nsiName
+      - operationCode
+      - operationYmdt
+      - osDiskTypeCode
+      - osDiskTypeDetailCode
+      - osInformation
+      - overlayNetworkIp
+      - parameters
+      - placementGroupName
+      - placementGroupNo
+      - placementPartitionNumber
+      - platformTypeCode
+      - pmNo
+      - privateIp
+      - productCode
+      - providerID
+      - publicIp
+      - publicIpInstanceNo
+      - redhatYn
+      - regionCode
+      - regionName
+      - regionNo
+      - returnProtectionYn
+      - roleCd
+      - rootPassword
+      - rootPasswordResetYn
+      - serverImageName
+      - serverInstanceTypeCode
+      - serverName
+      - serverSpec
+      - serviceGroupInstanceTypeCode
+      - softwareProductCode
+      - spec
+      - specVersion
+      - status
+      - statusCode
+      - statusColor
+      - statusName
+      - storageEncryptionYn
+      - subAccountLoginId
+      - subAccountNo
+      - subnetName
+      - subnetNo
+      - updateYmdt
+      - uptime
+      - vpcName
+      - vpcNo
+      - zoneName
+      - zoneNo
+      type: object
+    UpdateNodeDto:
+      properties: {}
+      type: object
+    CreateNodePoolDto:
+      properties: {}
+      type: object
+    AutoscaleRes:
+      example:
+        min: 6.027456183070403
+        max: 0.8008281904610115
+        enabled: true
+      properties:
+        enabled:
+          type: boolean
+        max:
+          type: number
+        min:
+          type: number
+      required:
+      - enabled
+      - max
+      - min
+      type: object
+    NodepoolRes:
+      example:
+        detailStatus: detailStatus
+        instanceNo: 5.962133916683182
+        specCode: specCode
+        name: name
+        index: 1.4658129805029452
+        nodeCount: 5.637376656633329
+        autoscale:
+          min: 6.027456183070403
+          max: 0.8008281904610115
+          enabled: true
+        subNetNos:
+        - subNetNos
+        - subNetNos
+        k8sVersion: k8sVersion
+        status: status
+      properties:
+        autoscale:
+          $ref: '#/components/schemas/AutoscaleRes'
+        detailStatus:
+          type: string
+        index:
+          type: number
+        instanceNo:
+          type: number
+        k8sVersion:
+          type: string
+        name:
+          type: string
+        nodeCount:
+          type: number
+        specCode:
+          type: string
+        status:
+          type: string
+        subNetNos:
+          items:
+            type: string
+          type: array
+      required:
+      - autoscale
+      - detailStatus
+      - index
+      - instanceNo
+      - k8sVersion
+      - name
+      - nodeCount
+      - specCode
+      - status
+      - subNetNos
+      type: object
+    UpdateNodePoolDto:
+      properties: {}
+      type: object
+    AuditLogDto:
+      example:
+        audit: true
+      properties:
+        audit:
+          type: boolean
+      required:
+      - audit
+      type: object
+    AutoscaleDto:
+      example:
+        min: 1
+        max: 6
+        enabled: true
+      properties:
+        enabled:
+          type: boolean
+        max:
+          type: integer
+        min:
+          type: integer
+      required:
+      - enabled
+      - max
+      - min
+      type: object
+    NodeGroupDto:
+      example:
+        specCode: specCode
+        name: name
+        nodeCount: 5
+        autoscale:
+          min: 1
+          max: 6
+          enabled: true
+        subNetNos:
+        - 5
+        - 5
+        k8sVersion: k8sVersion
+      properties:
+        autoscale:
+          $ref: '#/components/schemas/AutoscaleDto'
+        k8sVersion:
+          type: string
+        name:
+          type: string
+        nodeCount:
+          type: integer
+        specCode:
+          type: string
+        subNetNos:
+          items:
+            type: integer
+          type: array
+      required:
+      - k8sVersion
+      - name
+      - nodeCount
+      - specCode
+      - subNetNos
+      type: object
+    CreateClusterDto:
+      example:
+        clusterType: SVR.VNKS.STAND.C002.M008.NET.SSD.B050.G002
+        lbPublicSubnetNo: 2
+        subnetNm: subnetNm
+        log:
+          audit: true
+        subnetNoList:
+        - 822
+        - 823
+        - 824
+        k8sVersion: k8sVersion
+        regionNo: "1"
+        zoneNo: "2"
+        loginKeyName: loginKeyName
+        cniServiceCidr: cniServiceCidr
+        subnetLbNm: subnetLbNm
+        name: hello-nks
+        cniMasterCidr: cniMasterCidr
+        vpcNo: 564
+        vpcNm: vpcNm
+        lbPrivateSubnetNo: 0
+        cniPodCidr: cniPodCidr
+        kubeNetworkPlugin: ncloud-vpc-cni
+        zoneCode: zoneCode
+        nodeGroups:
+        - specCode: specCode
+          name: name
+          nodeCount: 5
+          autoscale:
+            min: 1
+            max: 6
+            enabled: true
+          subNetNos:
+          - 5
+          - 5
+          k8sVersion: k8sVersion
+        - specCode: specCode
+          name: name
+          nodeCount: 5
+          autoscale:
+            min: 1
+            max: 6
+            enabled: true
+          subNetNos:
+          - 5
+          - 5
+          k8sVersion: k8sVersion
+      properties:
+        name:
+          example: hello-nks
+          type: string
+        regionNo:
+          example: "1"
+          type: string
+        clusterType:
+          example: SVR.VNKS.STAND.C002.M008.NET.SSD.B050.G002
+          type: string
+        vpcNo:
+          example: 564
+          type: integer
+        zoneNo:
+          example: "2"
+          type: string
+        zoneCode:
+          type: string
+        subnetNoList:
+          example:
+          - 822
+          - 823
+          - 824
+          items:
+            type: integer
+          type: array
+        lbPrivateSubnetNo:
+          type: integer
+        loginKeyName:
+          type: string
+        log:
+          $ref: '#/components/schemas/AuditLogDto'
+        nodeGroups:
+          items:
+            $ref: '#/components/schemas/NodeGroupDto'
+          type: array
+        cniMasterCidr:
+          type: string
+        cniPodCidr:
+          type: string
+        cniServiceCidr:
+          type: string
+        k8sVersion:
+          type: string
+        kubeNetworkPlugin:
+          example: ncloud-vpc-cni
+          type: string
+        vpcNm:
+          type: string
+        lbPublicSubnetNo:
+          type: integer
+        subnetLbNm:
+          type: string
+        subnetNm:
+          type: string
+      required:
+      - clusterType
+      - lbPrivateSubnetNo
+      - loginKeyName
+      - name
+      - regionNo
+      - subnetNoList
+      - vpcNo
+      type: object
+    VerifyCreationRes:
+      example:
+        valid: true
+        result: '{}'
+        message: '{}'
+        type: '{}'
+        params: '{}'
+      properties:
+        valid:
+          type: boolean
+        message:
+          type: object
+        type:
+          type: object
+        params:
+          type: object
+        result:
+          type: object
+      required:
+      - message
+      - params
+      - result
+      - type
+      - valid
+      type: object
+    NodeGroupRes:
+      example:
+        detailStatus: detailStatus
+        instanceNo: 2
+        specCode: specCode
+        name: name
+        index: 5
+        nodeCount: 7
+        autoscale:
+          min: 6.027456183070403
+          max: 0.8008281904610115
+          enabled: true
+        subNetNos:
+        - 9
+        - 9
+        k8sVersion: k8sVersion
+        status: status
+      properties:
+        autoscale:
+          $ref: '#/components/schemas/AutoscaleRes'
+        detailStatus:
+          type: string
+        index:
+          type: integer
+        instanceNo:
+          type: integer
+        k8sVersion:
+          type: string
+        name:
+          type: string
+        nodeCount:
+          type: integer
+        specCode:
+          type: string
+        status:
+          type: string
+        subNetNos:
+          items:
+            type: integer
+          type: array
+      required:
+      - detailStatus
+      - index
+      - instanceNo
+      - k8sVersion
+      - name
+      - nodeCount
+      - specCode
+      - status
+      - subNetNos
+      type: object
+    AuditLogRes:
+      example:
+        audit: false
+      properties:
+        audit:
+          default: false
+          type: boolean
+      required:
+      - audit
+      type: object
+    RequestParamRes:
+      example:
+        clusterType: clusterType
+        subnetNm: subnetNm
+        log:
+          audit: false
+        k8sVersion: k8sVersion
+        regionNo: regionNo
+        subnetLbNo: 3
+        subnetNos:
+        - 2
+        - 2
+        zoneNo: zoneNo
+        cniServiceCidr: cniServiceCidr
+        loginKeyName: loginKeyName
+        subnetLbNm: subnetLbNm
+        cniMasterCidr: cniMasterCidr
+        name: name
+        vpcNo: 4
+        vpcNm: vpcNm
+        cniPodCidr: cniPodCidr
+      properties:
+        clusterType:
+          type: string
+        cniMasterCidr:
+          type: string
+        cniPodCidr:
+          type: string
+        cniServiceCidr:
+          type: string
+        k8sVersion:
+          type: string
+        log:
+          $ref: '#/components/schemas/AuditLogRes'
+        loginKeyName:
+          type: string
+        name:
+          type: string
+        regionNo:
+          type: string
+        subnetLbNm:
+          type: string
+        subnetLbNo:
+          type: integer
+        subnetNm:
+          type: string
+        subnetNos:
+          items:
+            type: integer
+          type: array
+        vpcNm:
+          type: string
+        vpcNo:
+          type: integer
+        zoneNo:
+          type: string
+      required:
+      - clusterType
+      - cniMasterCidr
+      - cniPodCidr
+      - cniServiceCidr
+      - k8sVersion
+      - log
+      - loginKeyName
+      - name
+      - regionNo
+      - subnetLbNm
+      - subnetLbNo
+      - subnetNm
+      - subnetNos
+      - vpcNm
+      - vpcNo
+      - zoneNo
+      type: object
+    ClusterRes:
+      example:
+        detailStatus: detailStatus
+        clusterType: clusterType
+        appVersion: appVersion
+        nodeMaxCount: 1.4894159098541704
+        contractNo: 0
+        description: description
+        requestParam:
+          clusterType: clusterType
+          subnetNm: subnetNm
+          log:
+            audit: false
+          k8sVersion: k8sVersion
+          regionNo: regionNo
+          subnetLbNo: 3
+          subnetNos:
+          - 2
+          - 2
+          zoneNo: zoneNo
+          cniServiceCidr: cniServiceCidr
+          loginKeyName: loginKeyName
+          subnetLbNm: subnetLbNm
+          cniMasterCidr: cniMasterCidr
+          name: name
+          vpcNo: 4
+          vpcNm: vpcNm
+          cniPodCidr: cniPodCidr
+        k8sVersion: k8sVersion
+        uuid: uuid
+        isStartMetering: isStartMetering
+        mbrNo: 5
+        subnetNos:
+        - 7
+        - 7
+        regionCode: regionCode
+        updateYmdt: 2000-01-23T04:56:07.000+00:00
+        lbSubnetNo: 1
+        name: name
+        vpcNo: 1
+        nodeCount: 1.0246457001441578
+        id: 6
+        createYmdt: 2000-01-23T04:56:07.000+00:00
+        nodeGroups:
+        - detailStatus: detailStatus
+          instanceNo: 2
+          specCode: specCode
+          name: name
+          index: 5
+          nodeCount: 7
+          autoscale:
+            min: 6.027456183070403
+            max: 0.8008281904610115
+            enabled: true
+          subNetNos:
+          - 9
+          - 9
+          k8sVersion: k8sVersion
+          status: status
+        - detailStatus: detailStatus
+          instanceNo: 2
+          specCode: specCode
+          name: name
+          index: 5
+          nodeCount: 7
+          autoscale:
+            min: 6.027456183070403
+            max: 0.8008281904610115
+            enabled: true
+          subNetNos:
+          - 9
+          - 9
+          k8sVersion: k8sVersion
+          status: status
+        statusForConsole: statusForConsole
+        status: status
+      properties:
+        appVersion:
+          type: string
+        contractNo:
+          type: integer
+        createYmdt:
+          format: date-time
+          type: string
+        description:
+          type: string
+        detailStatus:
+          type: string
+        id:
+          type: integer
+        isStartMetering:
+          type: string
+        k8sVersion:
+          type: string
+        lbSubnetNo:
+          type: integer
+        mbrNo:
+          type: integer
+        name:
+          type: string
+        nodeGroups:
+          items:
+            $ref: '#/components/schemas/NodeGroupRes'
+          type: array
+        regionCode:
+          type: string
+        requestParam:
+          $ref: '#/components/schemas/RequestParamRes'
+        status:
+          type: string
+        subnetNos:
+          items:
+            type: integer
+          type: array
+        updateYmdt:
+          format: date-time
+          type: string
+        uuid:
+          type: string
+        vpcNo:
+          type: integer
+        clusterType:
+          type: string
+        nodeCount:
+          type: number
+        nodeMaxCount:
+          type: number
+        statusForConsole:
+          type: string
+      required:
+      - appVersion
+      - clusterType
+      - contractNo
+      - createYmdt
+      - description
+      - detailStatus
+      - id
+      - isStartMetering
+      - k8sVersion
+      - lbSubnetNo
+      - mbrNo
+      - name
+      - nodeCount
+      - nodeGroups
+      - nodeMaxCount
+      - regionCode
+      - requestParam
+      - status
+      - statusForConsole
+      - subnetNos
+      - updateYmdt
+      - uuid
+      - vpcNo
+      type: object
+    UpdateClusterDto:
+      example:
+        clusterType: SVR.VNKS.STAND.C002.M008.NET.SSD.B050.G002
+        lbPublicSubnetNo: 6
+        subnetNm: subnetNm
+        log:
+          audit: true
+        subnetNoList:
+        - 822
+        - 823
+        - 824
+        k8sVersion: k8sVersion
+        regionNo: "1"
+        zoneNo: "2"
+        loginKeyName: loginKeyName
+        cniServiceCidr: cniServiceCidr
+        subnetLbNm: subnetLbNm
+        name: hello-nks
+        cniMasterCidr: cniMasterCidr
+        vpcNo: 564
+        vpcNm: vpcNm
+        lbPrivateSubnetNo: 0
+        cniPodCidr: cniPodCidr
+        kubeNetworkPlugin: ncloud-vpc-cni
+        zoneCode: zoneCode
+        nodeGroups:
+        - specCode: specCode
+          name: name
+          nodeCount: 5
+          autoscale:
+            min: 1
+            max: 6
+            enabled: true
+          subNetNos:
+          - 5
+          - 5
+          k8sVersion: k8sVersion
+        - specCode: specCode
+          name: name
+          nodeCount: 5
+          autoscale:
+            min: 1
+            max: 6
+            enabled: true
+          subNetNos:
+          - 5
+          - 5
+          k8sVersion: k8sVersion
+      properties:
+        name:
+          example: hello-nks
+          type: string
+        regionNo:
+          example: "1"
+          type: string
+        clusterType:
+          example: SVR.VNKS.STAND.C002.M008.NET.SSD.B050.G002
+          type: string
+        vpcNo:
+          example: 564
+          type: integer
+        zoneNo:
+          example: "2"
+          type: string
+        zoneCode:
+          type: string
+        subnetNoList:
+          example:
+          - 822
+          - 823
+          - 824
+          items:
+            type: integer
+          type: array
+        lbPrivateSubnetNo:
+          type: integer
+        loginKeyName:
+          type: string
+        log:
+          $ref: '#/components/schemas/AuditLogDto'
+        nodeGroups:
+          items:
+            $ref: '#/components/schemas/NodeGroupDto'
+          type: array
+        cniMasterCidr:
+          type: string
+        cniPodCidr:
+          type: string
+        cniServiceCidr:
+          type: string
+        k8sVersion:
+          type: string
+        kubeNetworkPlugin:
+          example: ncloud-vpc-cni
+          type: string
+        vpcNm:
+          type: string
+        lbPublicSubnetNo:
+          type: integer
+        subnetLbNm:
+          type: string
+        subnetNm:
+          type: string
+      type: object
+    VerifyModificationRes:
+      example:
+        valid: true
+        result:
+          detailStatus: detailStatus
+          clusterType: clusterType
+          appVersion: appVersion
+          nodeMaxCount: 1.4894159098541704
+          contractNo: 0
+          description: description
+          requestParam:
+            clusterType: clusterType
+            subnetNm: subnetNm
+            log:
+              audit: false
+            k8sVersion: k8sVersion
+            regionNo: regionNo
+            subnetLbNo: 3
+            subnetNos:
+            - 2
+            - 2
+            zoneNo: zoneNo
+            cniServiceCidr: cniServiceCidr
+            loginKeyName: loginKeyName
+            subnetLbNm: subnetLbNm
+            cniMasterCidr: cniMasterCidr
+            name: name
+            vpcNo: 4
+            vpcNm: vpcNm
+            cniPodCidr: cniPodCidr
+          k8sVersion: k8sVersion
+          uuid: uuid
+          isStartMetering: isStartMetering
+          mbrNo: 5
+          subnetNos:
+          - 7
+          - 7
+          regionCode: regionCode
+          updateYmdt: 2000-01-23T04:56:07.000+00:00
+          lbSubnetNo: 1
+          name: name
+          vpcNo: 1
+          nodeCount: 1.0246457001441578
+          id: 6
+          createYmdt: 2000-01-23T04:56:07.000+00:00
+          nodeGroups:
+          - detailStatus: detailStatus
+            instanceNo: 2
+            specCode: specCode
+            name: name
+            index: 5
+            nodeCount: 7
+            autoscale:
+              min: 6.027456183070403
+              max: 0.8008281904610115
+              enabled: true
+            subNetNos:
+            - 9
+            - 9
+            k8sVersion: k8sVersion
+            status: status
+          - detailStatus: detailStatus
+            instanceNo: 2
+            specCode: specCode
+            name: name
+            index: 5
+            nodeCount: 7
+            autoscale:
+              min: 6.027456183070403
+              max: 0.8008281904610115
+              enabled: true
+            subNetNos:
+            - 9
+            - 9
+            k8sVersion: k8sVersion
+            status: status
+          statusForConsole: statusForConsole
+          status: status
+        message: '{}'
+        type: '{}'
+        params: '{}'
+      properties:
+        valid:
+          type: boolean
+        message:
+          type: object
+        type:
+          type: object
+        params:
+          type: object
+        result:
+          $ref: '#/components/schemas/ClusterRes'
+      required:
+      - message
+      - params
+      - result
+      - type
+      - valid
+      type: object
+    CreateIamDto:
+      properties: {}
+      type: object
+    UpdateIamDto:
+      properties: {}
+      type: object
+    Function:
+      properties: {}
+      type: object
+    OptionRes:
+      example:
+        disabled: '{}'
+        label: label
+        value: '{}'
+      properties:
+        label:
+          type: string
+        value:
+          properties: {}
+          type: object
+        disabled:
+          properties: {}
+          type: object
+      required:
+      - disabled
+      - label
+      - value
+      type: object
